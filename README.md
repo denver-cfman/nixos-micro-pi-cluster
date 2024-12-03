@@ -20,3 +20,8 @@ nix build -L github:denver-cfman/nixos-micro-pi-cluster?ref=main#nixosConfigurat
 cp result/sd-images/8d4cb64d.img ~/
 ls ~/
 ```
+
+### remote update nix (nixos-rebuild) on cluster head
+```
+nix run github:serokell/deploy-rs github:denver-cfman/nixos-micro-pi-cluster?ref=main#_8d4cb64d -- --ssh-user giezac --hostname 10.0.85.10
+```
