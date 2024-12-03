@@ -166,7 +166,7 @@
     usbutils
     coreutils
     kmod
-    k3s_1_26
+    k3s
     ethtool
   ];
 
