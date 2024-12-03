@@ -1,5 +1,6 @@
 #
-# nix flake check --no-build github:denver-cfman/nixos-micro-pi-cluster
+# nix flake check --no-build github:denver-cfman/nixos-micro-pi-cluster?ref=main
+# nix flake show --no-build github:denver-cfman/nixos-micro-pi-cluster?ref=main
 #
 {
   description = "Flake for building a Raspberry Pi Zero 2 SD image";
