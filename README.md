@@ -12,7 +12,7 @@ nix flake show github:denver-cfman/nixos-micro-pi-cluster?ref=main
 
 ### build sd image for cluster head, use ` nix flake show github:denver-cfman/nixos-micro-pi-cluster?ref=main ` to list nodes
 ```
-nix build -L github:denver-cfman/nixos-micro-pi-cluster?ref=main#nixosConfigurations._8d4cb64d.config.system.build.sdImage
+nix build --rebuild -L github:denver-cfman/nixos-micro-pi-cluster?ref=main#nixosConfigurations._8d4cb64d.config.system.build.sdImage
 ```
 
 ### copy sd image
