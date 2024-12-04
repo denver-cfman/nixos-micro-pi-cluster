@@ -144,7 +144,6 @@
     vim
     usbutils
     coreutils
-    kmod
     ethtool
   ];
 
