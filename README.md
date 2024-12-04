@@ -17,7 +17,7 @@ nix build -L github:denver-cfman/nixos-micro-pi-cluster?ref=main#nixosConfigurat
 
 ### copy sd image
 ```
-cp result/sd-images/8d4cb64d.img ~/
+sudo cp result/sd-image/8d4cb64d.img ~/
 ls ~/
 ```
 
