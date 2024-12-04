@@ -2,12 +2,14 @@
   lib,
   modulesPath,
   pkgs,
+  nixos-hardware,
   ...
 }:
 {
   imports = [
     ./sd-image.nix
     ./common-aarch64.nix
+    "${nixos-hardware}/raspberry-pi/4"
   ];
 
   sdImage = {
@@ -40,6 +42,16 @@
 
   networking.hostName = "clusterhat";
   #hardware.raspberry-pi."4".dwc2.enable = true;
+
+  hardware = {
+    raspberry-pi."4" = {
+      apply-overlays-dtmerge.enable = true;
+      fkms-3d.enable = true; # rudolf
+    };
+    deviceTree = {
+      enable = true;
+    };
+  };
 
   networking = {
     hosts = {
