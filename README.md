@@ -2,12 +2,12 @@
 
 ### check this flake
 ```
-nix flake check --no-build github:denver-cfman/nixos-micro-pi-cluster?ref=main
+nix flake check -v -L --no-build github:denver-cfman/nixos-micro-pi-cluster?ref=main
 ```
 
 ### show this flake
 ```
-nix flake show github:denver-cfman/nixos-micro-pi-cluster?ref=main
+nix flake show --all-systems --json github:denver-cfman/nixos-micro-pi-cluster?ref=main | jq '.'
 ```
 
 ### build sd image for cluster head, use ` nix flake show github:denver-cfman/nixos-micro-pi-cluster?ref=main ` to list nodes
