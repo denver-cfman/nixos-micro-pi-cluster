@@ -78,6 +78,13 @@
       deploy = {
         user = "root";
         sshOpts = [ "-i" "/home/giezac/.ssh/pzw2.rsa" ];
+        # Timeout for profile activation.
+        # This defaults to 240 seconds.
+        activationTimeout = 600;
+      
+        # Timeout for profile activation confirmation.
+        # This defaults to 30 seconds.
+        confirmTimeout = 60;
         nodes = {
           _1b5a4d6b = {
             hostname = "1b5a4d6b";
