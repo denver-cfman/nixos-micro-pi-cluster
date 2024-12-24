@@ -157,6 +157,7 @@
     usbutils
     coreutils
     ethtool
+    i2c-tools
   ];
 
 }
