@@ -72,7 +72,9 @@
           ];
         };
       };
-          
+      
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      
       deploy = {
         user = "root";
         sshOpts = [ "-i" "/home/giezac/.ssh/pzw2.rsa" ];
