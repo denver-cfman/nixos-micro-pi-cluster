@@ -82,7 +82,11 @@
           };
         };
         _8d4cb64d = { name, nodes, pkgs, ... }: {
-          deployment.tags = [ "head" ];
+          deployment = {
+            targetHost = "10.0.85.10";
+            targetUser = "giezac";
+            tags = [ "head" ];
+          };
         };
       };
 
