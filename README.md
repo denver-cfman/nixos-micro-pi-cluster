@@ -31,5 +31,5 @@ ls ~/
 
 ### remote update nix (nixos-rebuild) on cluster head
 ```
-nix run github:serokell/deploy-rs github:denver-cfman/nixos-micro-pi-cluster?ref=main#_8d4cb64d -- --ssh-user giezac --hostname 10.0.85.10
+nixos-rebuild switch --flake github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d --target-host 10.0.85.10 --use-remote-sudo
 ```
