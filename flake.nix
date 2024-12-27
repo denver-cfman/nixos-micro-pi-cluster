@@ -73,8 +73,19 @@
         };
       };
       
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-      
+      colmena = {
+        meta = { 
+          allowApplyAll = false;
+          nixpkgs = import nixpkgs {
+            system = "aarch64-linux";
+            overlays = [];
+          };
+        };
+        _8d4cb64d = { name, nodes, pkgs, ... }: {
+          deployment.tags = [ "head" ];
+        };
+      };
+
       deploy = {
         user = "root";
         sshOpts = [ "-i" "/home/giezac/.ssh/pzw2.rsa" ];
