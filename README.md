@@ -31,5 +31,5 @@ ls ~/
 
 ### remote update nix (nixos-rebuild) on cluster head
 ```
-nixos-rebuild switch --flake github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d --target-host 10.0.85.10 --use-remote-sudo
+sudo nixos-rebuild switch --flake github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d --target-host 10.0.85.10 --use-remote-sudo --build-host 10.0.81.242
 ```
