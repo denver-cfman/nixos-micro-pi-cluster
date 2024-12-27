@@ -15,6 +15,11 @@ in
   nixpkgs.hostPlatform.system = "aarch64-linux";
   nixpkgs.buildPlatform.system = "x86_64-linux";
   # ! Need a trusted user for deploy-rs.
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   nix.settings.trusted-users = ["@wheel"];
   system.stateVersion = "24.05";
 
