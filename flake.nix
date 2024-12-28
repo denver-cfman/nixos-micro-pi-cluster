@@ -9,7 +9,7 @@
     #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     deploy-rs.url = "github:serokell/deploy-rs";
-    colmena.url = "github:zhaofengli/colmena";
+    #colmena.url = "github:zhaofengli/colmena";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
@@ -17,7 +17,7 @@
     self,
     nixpkgs,
     deploy-rs,
-    colmena,
+    #colmena,
     nixos-hardware
   }@inputs:
     let
@@ -74,7 +74,8 @@
           ];
         };
       };
-      
+
+      /*
       colmena = {
         meta = { 
           allowApplyAll = false;
@@ -91,7 +92,7 @@
           };
         };
       };
-
+      */
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       deploy = {
         user = "root";
