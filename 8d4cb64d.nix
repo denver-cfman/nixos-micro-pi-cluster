@@ -153,6 +153,7 @@
     raspberrypi-eeprom
     #dnsmasq
     htop
+    jq
     vim
     usbutils
     coreutils
