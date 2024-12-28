@@ -125,6 +125,7 @@ in
     raspberrypi-eeprom
     htop
     vim
+    jq
     usbutils
     #lsof
     #dig
