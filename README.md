@@ -36,5 +36,5 @@ sudo nixos-rebuild switch --flake github:denver-cfman/nixos-micro-pi-cluster#_8d
 ```
 #### deploy-rs
 ```
-nix run github:serokell/deploy-rs github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d -- --ssh-user giezac --hostname 10.0.85.10
+nix run github:serokell/deploy-rs github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d -- -s -d --ssh-user giezac --hostname 10.0.85.10
 ```
