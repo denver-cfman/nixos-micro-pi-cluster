@@ -4,9 +4,9 @@
 | --- | --- | --- | --- |
 | 10.0.85.10 | dc:a6:32:62:18:5b | 8d4cb64d | microPi Cluster Head |
 | 10.0.85.11 | 00:00:00:00:00:aa | AABBCCDD | microPi Cluster Node1 |
-| 10.0.85.12 | 00:00:00:00:00:ab | AABBCCDD | microPi Cluster Node2 |
+| 10.0.85.12 | 00:00:00:00:00:ab | feXXXXXX | microPi Cluster Node2 |
 | 10.0.85.13 | 00:00:00:00:00:ac | AABBCCDD | microPi Cluster Node3 |
-| 10.0.85.14 | 00:00:00:00:00:ad | AABBCCDD | microPi Cluster Node4 |
+| 10.0.85.14 | 00:00:00:00:00:ad | 004f17e5 | microPi Cluster Node4 |
 ---
 ### check this flake
 ```
