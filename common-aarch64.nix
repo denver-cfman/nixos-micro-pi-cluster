@@ -134,7 +134,7 @@ in
     #file
     k3s
     ethtool
-    usbview
+    util-linux
   ];
 
 
