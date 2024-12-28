@@ -1,5 +1,7 @@
 # nixos-micro-pi-cluster
 ---
+![pinout](./rpi_pinout.png)
+---
 | ipv4 | MAC | SN | Note |
 | --- | --- | --- | --- |
 | 10.0.85.10 | dc:a6:32:62:18:5b | 8d4cb64d | microPi Cluster Head |
