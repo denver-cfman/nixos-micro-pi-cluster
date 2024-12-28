@@ -135,6 +135,7 @@ in
     k3s
     ethtool
     util-linux
+    tcpdump
   ];
 
 
