@@ -103,7 +103,7 @@
       
         # Timeout for profile activation confirmation.
         # This defaults to 30 seconds.
-        confirmTimeout = 60;
+        confirmTimeout = 90;
         nodes = {
           _1b5a4d6b = {
             hostname = "1b5a4d6b";
