@@ -127,13 +127,14 @@ in
     vim
     jq
     usbutils
-    #lsof
+    lsof
     #dig
     #tree
     #bintools
     #file
     k3s
     ethtool
+    util-linux
   ];
 
 

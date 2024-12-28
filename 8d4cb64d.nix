@@ -40,13 +40,15 @@
     ];
   };
 
+
   networking.hostName = "clusterhat";
-  #hardware.raspberry-pi."4".dwc2.enable = true;
 
   hardware = {
     raspberry-pi."4" = {
       apply-overlays-dtmerge.enable = true;
       fkms-3d.enable = true; # rudolf
+      i2c1.enable = true;
+      # dwc2.enable = true;
     };
     deviceTree = {
       enable = true;
