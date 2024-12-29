@@ -34,9 +34,10 @@ in
     };
   };
 
-  # Keep this to make sure wifi works
+  # Disable WiFi
   hardware.enableRedistributableFirmware = lib.mkForce false;
-  hardware.firmware = [pkgs.raspberrypiWirelessFirmware];
+  #hardware.firmware = [pkgs.raspberrypiWirelessFirmware];
+  hardware.firmware = [ ];
 
   users.groups.gpio = {};
 
