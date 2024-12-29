@@ -26,19 +26,6 @@ in
   # don't build the NixOS docs locally
   documentation.nixos.enable = false;
 
-  services.zram-generator = {
-    enable = true;
-    settings.zram0 = {
-      compression-algorithm = "zstd";
-      zram-size = "ram * 2";
-    };
-  };
-
-  # Disable WiFi
-  hardware.enableRedistributableFirmware = lib.mkForce false;
-  #hardware.firmware = [pkgs.raspberrypiWirelessFirmware];
-  hardware.firmware = [ ];
-
   users.groups.gpio = {};
 
   # services.udev.extraRules = ''
