@@ -61,4 +61,9 @@
   #hardware.firmware = [pkgs.raspberrypiWirelessFirmware];
   hardware.firmware = [ ];
 
+  hardware.deviceTree = {
+      enable = true;
+      overlays = [ ];
+  };
+
 }
