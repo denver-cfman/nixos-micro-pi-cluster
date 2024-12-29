@@ -40,6 +40,13 @@
     ];
   };
 
-  networking.hostName = "004f17e5";
+  networking = lib.mkForce { 
+    hostName = "004f17e5";
+    interfaces = {
+      wlan0 = {
+        enable = false; 
+      };
+    };
+  };
 
 }
