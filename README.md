@@ -5,8 +5,9 @@
 |Pin|Color|
 |---|---|
 |Black|Ground|
-|White||
-|Green||
+|White|RX|
+|Green|TX|
+|Red| vcc|
 ---
 | ipv4 | USB MAC | WiFi MAC | SN | Note |
 | --- | --- | --- | --- | --- |
