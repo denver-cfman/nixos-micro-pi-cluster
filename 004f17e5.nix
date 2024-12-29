@@ -8,41 +8,10 @@
   imports = [
     ./sd-image.nix
     ./common-aarch64.nix
+    ./common-rpi0-node.nix
   ];
 
-  sdImage = {
-    compressImage = false;
-    imageName = "004f17e5.img";
-
-    extraFirmwareConfig = {
-      # Give up VRAM for more Free System Memory
-      # - Disable camera which automatically reserves 128MB VRAM
-      start_x = 0;
-
-      # Reduce allocation of VRAM to 16MB minimum for non-rotated
-      # (32MB for rotated)
-      gpu_mem = 16;
-
-      # Configure display to 800x600 so it fits on most screens
-      # * See: https://elinux.org/RPi_Configuration
-      hdmi_group = 2;
-      hdmi_mode = 8;
-    };
-  };
-
-  # this is handled by nixos-hardware on Pi 4
-  ## "console=ttyS1,115200n8" OR "console=ttyAMA0,115200n8" 
-  boot = {
-    kernelParams = lib.mkForce ["console=ttyAMA0,115200n8" "console=ttyS1,115200n8"];
-    initrd.availableKernelModules = [
-      "usbhid"
-      "usb_storage"
-    ];
-  };
-
-  networking = lib.mkForce { 
-    hostName = "004f17e5";
-    wireless.enable = false;
-  };
+  sdImage.imageName  = lib.mkForce "004f17e5.img";
+  networking.hostName = lib.mkForce "004f17e5";
 
 }
