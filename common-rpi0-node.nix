@@ -44,4 +44,18 @@
     wireless.enable = false;
   };
 
+
+  services.zram-generator = {
+    enable = true;
+    settings.zram0 = {
+      compression-algorithm = "zstd";
+      zram-size = "ram * 2";
+    };
+  };
+
+  # Disable WiFi
+  hardware.enableRedistributableFirmware = lib.mkForce false;
+  #hardware.firmware = [pkgs.raspberrypiWirelessFirmware];
+  hardware.firmware = [ ];
+
 }
