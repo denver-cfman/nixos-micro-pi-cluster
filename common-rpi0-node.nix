@@ -12,7 +12,7 @@
 
   sdImage = {
     compressImage = false;
-    imageName = "common-rpi0.img";
+    #imageName = "common-rpi0.img";
 
     extraFirmwareConfig = {
       # Give up VRAM for more Free System Memory
