@@ -54,6 +54,9 @@ in
   '';
 
   boot = {
+    kernelParams = [
+      "console=ttyS1,115200n8"
+    ];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
