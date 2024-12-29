@@ -31,10 +31,9 @@
   };
 
   # this is handled by nixos-hardware on Pi 4
+  ## "console=ttyS1,115200n8" OR "console=ttyAMA0,115200n8" 
   boot = {
-    kernelParams = [
-      "console=ttyS1,115200n8"
-    ];
+    kernelParams = lib.mkForce ["console=ttyAMA0,115200n8" "console=ttyS1,115200n8"];
     initrd.availableKernelModules = [
       "usbhid"
       "usb_storage"
