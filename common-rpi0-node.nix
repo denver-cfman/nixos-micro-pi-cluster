@@ -39,6 +39,7 @@
     initrd.availableKernelModules = [
       "usbhid"
       "usb_storage"
+      "libcomposite"
     ];
   };
 
