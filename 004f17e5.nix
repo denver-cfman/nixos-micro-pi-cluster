@@ -44,7 +44,7 @@
     hostName = "004f17e5";
     interfaces = {
       wlan0 = {
-        enable = false; 
+        enabled = false; 
       };
     };
   };
