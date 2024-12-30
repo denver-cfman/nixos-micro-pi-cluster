@@ -97,6 +97,7 @@
 
 
   systemd.services."cluster-hat" = {
+    description = "MicroPi ClusterHat Prep Script";
     enable = true;
     reloadIfChanged = true;
     restartIfChanged = true;
