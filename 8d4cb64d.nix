@@ -137,7 +137,7 @@
     wantedBy = [ "default.target" ];
     after = [
               "cluster-hat.service"
-              "off-all-cluster-nodes"
+              "off-all-cluster-nodes.service"
             ];
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
