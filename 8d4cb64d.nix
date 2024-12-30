@@ -75,6 +75,8 @@
 
   services.dnsmasq = {
     enable = true;
+    reloadIfChanged = false;
+    restartIfChanged = false;
     resolveLocalQueries = false;
     settings = {
       dhcp-authoritative = true;
@@ -96,6 +98,8 @@
 
   systemd.services."cluster-hat" = {
     enable = false;
+    reloadIfChanged = false;
+    restartIfChanged = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -118,6 +122,8 @@
 
   systemd.services."on-all-cluster-nodes" = {
     enable = false;
+    reloadIfChanged = false;
+    restartIfChanged = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -136,6 +142,8 @@
 
   systemd.services."off-all-cluster-nodes" = {
     enable = false;
+    reloadIfChanged = false;
+    restartIfChanged = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -154,6 +162,8 @@
 
   systemd.services."usb-otg" = {
     enable = false;
+    reloadIfChanged = false;
+    restartIfChanged = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
