@@ -122,7 +122,27 @@
     '';
   };
 
-
+  systemd.services."cluster-node1" = {
+    description = "MicroPi Cluster Turn On Node 1";
+    enable = true;
+    reloadIfChanged = false;
+    restartIfChanged = false;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    wantedBy = [ "default.target" ];
+    after = [
+              "cluster-hat.service"
+              "off-all-cluster-nodes.service"
+            ];
+    script = ''
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
+    '';
+    preStop = ''
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0x00 # Node 1
+    '';
+  };
 
 
   systemd.services."on-all-cluster-nodes" = {
