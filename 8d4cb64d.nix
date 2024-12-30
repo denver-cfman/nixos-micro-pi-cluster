@@ -138,7 +138,7 @@
     after = [
               "cluster-hat.service"
               "off-all-cluster-nodes"
-            ]
+            ];
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
       ${pkgs.coreutils}/bin/sleep 2
@@ -164,6 +164,9 @@
       RemainAfterExit = true;
     };
     wantedBy = [ "default.target" ];
+    after = [
+              "cluster-hat.service"
+            ];
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0x00 # Node 1
       ${pkgs.coreutils}/bin/sleep 2
