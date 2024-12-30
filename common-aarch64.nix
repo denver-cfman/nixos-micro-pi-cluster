@@ -77,6 +77,7 @@ in
   networking = {
     useDHCP = true;
     enableIPv6 = false;
+    usePredictableInterfaceNames = false;
   };
 
   services.dnsmasq.enable = true;
