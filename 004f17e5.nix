@@ -14,6 +14,7 @@
   sdImage.imageName  = lib.mkForce "004f17e5.img";
   networking.hostName = lib.mkForce "004f17e5";
 
+  /*
   systemd.services."usb-otg" = {
     serviceConfig = {
       Type = "oneshot";
@@ -43,7 +44,7 @@
       # End functions
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5/functions/ecm.usb0
       HOST="00:dc:c8:12:7c:b3" # "HostPC"
-      SELF="b8:27:eb:5a:4d:6b" # "00000000fe127cb3 / smsc95xx.macaddr=b8:27:eb:5a:4d:6b"
+      SELF="00:00:00:00:00:a1" # "00000000fe127cb3 / smsc95xx.macaddr=b8:27:eb:5a:4d:6b"
       echo $HOST > functions/ecm.usb0/host_addr
       echo $SELF > functions/ecm.usb0/dev_addr
       ln -s functions/ecm.usb0 configs/c.1/
@@ -53,6 +54,6 @@
   };
   #systemd.services.dnsmasq.after = [ "usb-otg.service" ];
   systemd.services."network-addresses-usb0".after = [ "usb-otg.service" ];
-
+  */
 
 }
