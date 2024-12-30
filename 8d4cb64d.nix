@@ -95,6 +95,7 @@
 
 
   systemd.services."cluster-hat" = {
+    enable = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -116,6 +117,7 @@
   };
 
   systemd.services."on-all-cluster-nodes" = {
+    enable = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -133,6 +135,7 @@
   };
 
   systemd.services."off-all-cluster-nodes" = {
+    enable = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -150,6 +153,7 @@
   };
 
   systemd.services."usb-otg" = {
+    enable = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
