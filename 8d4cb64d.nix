@@ -95,11 +95,11 @@
 
 */
 
-/*
+
   systemd.services."cluster-hat" = {
-    enable = false;
-    reloadIfChanged = false;
-    restartIfChanged = false;
+    enable = true;
+    #reloadIfChanged = false;
+    #restartIfChanged = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -120,7 +120,7 @@
     '';
   };
 
-*/
+
 
 /*
 
