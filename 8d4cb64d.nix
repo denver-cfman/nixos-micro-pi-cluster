@@ -144,9 +144,8 @@
     '';
   };
 
-
-  systemd.services."on-all-cluster-nodes" = {
-    description = "MicroPi Cluster Turn On all Nodes";
+  systemd.services."cluster-node2" = {
+    description = "MicroPi Cluster Turn On Node 2";
     enable = true;
     reloadIfChanged = false;
     restartIfChanged = false;
@@ -157,25 +156,17 @@
     wantedBy = [ "default.target" ];
     after = [
               "cluster-hat.service"
-              "off-all-cluster-nodes.service"
             ];
     script = ''
-      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
-      ${pkgs.coreutils}/bin/sleep 2
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0xff # Node 2
-      ${pkgs.coreutils}/bin/sleep 2
-      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0xff # Node 3
-      ${pkgs.coreutils}/bin/sleep 2
-      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
+    '';
+    preStop = ''
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0x00 # Node 2
     '';
   };
 
-
-
-
-
-  systemd.services."off-all-cluster-nodes" = {
-    description = "MicroPi Cluster Turn Off all Nodes";
+  systemd.services."cluster-node3" = {
+    description = "MicroPi Cluster Turn On Node 3";
     enable = true;
     reloadIfChanged = false;
     restartIfChanged = false;
@@ -188,17 +179,33 @@
               "cluster-hat.service"
             ];
     script = ''
-      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0x00 # Node 1
-      ${pkgs.coreutils}/bin/sleep 2
-      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0x00 # Node 2
-      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0xff # Node 3
+    '';
+    preStop = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0x00 # Node 3
-      ${pkgs.coreutils}/bin/sleep 2
+    '';
+  };
+
+  systemd.services."cluster-node4" = {
+    description = "MicroPi Cluster Turn On Node 4";
+    enable = true;
+    reloadIfChanged = false;
+    restartIfChanged = false;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    wantedBy = [ "default.target" ];
+    after = [
+              "cluster-hat.service"
+            ];
+    script = ''
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
+    '';
+    preStop = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
-
-
 
 /*
 
