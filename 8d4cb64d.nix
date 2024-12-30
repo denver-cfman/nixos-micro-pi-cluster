@@ -122,11 +122,11 @@
       # see gadget configurations below
       # End functions
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/8d4cb64d/functions/ecm.usb0
-      HOST="00:dc:c8:12:7c:b3" # "HostPC"
-      SELF="b8:27:eb:12:7c:b2" # "00000000fe127cb3 / smsc95xx.macaddr=B8:27:EB:12:7C:B3"
-      echo $HOST > functions/ecm.usb0/host_addr
-      echo $SELF > functions/ecm.usb0/dev_addr
-      ln -s functions/ecm.usb0 configs/c.1/
+      HOST="00:dc:c8:12:7c:b3"
+      SELF="b8:27:eb:12:7c:b2"
+      echo $HOST > /sys/kernel/config/usb_gadget/8d4cb64d/functions/ecm.usb0/host_addr
+      echo $SELF > /sys/kernel/config/usb_gadget/8d4cb64d/functions/ecm.usb0/dev_addr
+      ln -s /sys/kernel/config/usb_gadget/8d4cb64d/functions/ecm.usb0 configs/c.1/
       ${pkgs.systemd}/bin/udevadm settle -t 5 || :
       ls /sys/class/udc > UDC
     '';
