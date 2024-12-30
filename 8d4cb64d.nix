@@ -127,7 +127,7 @@
 
   systemd.services."on-all-cluster-nodes" = {
     description = "MicroPi Cluster Turn On all Nodes";
-    enable = false;
+    enable = true;
     reloadIfChanged = false;
     restartIfChanged = false;
     serviceConfig = {
@@ -135,6 +135,10 @@
       RemainAfterExit = true;
     };
     wantedBy = [ "default.target" ];
+    after = [
+              "cluster-hat.service"
+              "off-all-cluster-nodes"
+            ]
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
       ${pkgs.coreutils}/bin/sleep 2
@@ -152,7 +156,7 @@
 
   systemd.services."off-all-cluster-nodes" = {
     description = "MicroPi Cluster Turn Off all Nodes";
-    enable = false;
+    enable = true;
     reloadIfChanged = false;
     restartIfChanged = false;
     serviceConfig = {
