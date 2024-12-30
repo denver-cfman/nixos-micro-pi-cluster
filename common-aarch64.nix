@@ -18,10 +18,7 @@ in
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
-  '';
-
-  nix.extraOptions = ''
-   tarball-ttl = 0 
+    tarball-ttl = 0
   '';
 
   nix.gc = {
