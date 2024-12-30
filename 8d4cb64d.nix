@@ -104,7 +104,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    wantedBy = [ "on-all-cluster-nodes.service" "off-all-cluster-nodes.service" "usb-otg.service"];
+    #wantedBy = [ "on-all-cluster-nodes.service" "off-all-cluster-nodes.service" "usb-otg.service"];
+    wantedBy = [ "default.target" ];
     script = ''
       # POR has been cut so turn on P1-P4
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#000001111)) 1 0x20 1 0xff
