@@ -95,7 +95,7 @@
 
 */
 
-
+/*
   systemd.services."cluster-hat" = {
     enable = false;
     reloadIfChanged = false;
@@ -120,6 +120,10 @@
     '';
   };
 
+*/
+
+/*
+
   systemd.services."on-all-cluster-nodes" = {
     enable = false;
     reloadIfChanged = false;
@@ -140,6 +144,10 @@
     '';
   };
 
+*/
+
+/*
+
   systemd.services."off-all-cluster-nodes" = {
     enable = false;
     reloadIfChanged = false;
@@ -159,6 +167,8 @@
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
+
+*/
 
 /*
 
