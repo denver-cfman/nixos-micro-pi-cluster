@@ -98,8 +98,8 @@
 
   systemd.services."cluster-hat" = {
     enable = true;
-    #reloadIfChanged = false;
-    #restartIfChanged = false;
+    reloadIfChanged = true;
+    restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -123,7 +123,6 @@
 
 
 
-/*
 
   systemd.services."on-all-cluster-nodes" = {
     enable = false;
@@ -145,9 +144,9 @@
     '';
   };
 
-*/
 
-/*
+
+
 
   systemd.services."off-all-cluster-nodes" = {
     enable = false;
@@ -169,7 +168,7 @@
     '';
   };
 
-*/
+
 
 /*
 
