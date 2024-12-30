@@ -20,6 +20,10 @@ in
     experimental-features = nix-command flakes
   '';
 
+  nix.gc = {
+    automatic = true;
+  };
+
   nix.settings.trusted-users = ["@wheel"];
   system.stateVersion = "24.05";
 
