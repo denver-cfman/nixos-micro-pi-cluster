@@ -107,16 +107,16 @@
     wantedBy = [ "on-all-cluster-nodes.service" "off-all-cluster-nodes.service" "usb-otg.service"];
     script = ''
       # POR has been cut so turn on P1-P4
-      i2cset -y -m $((2#000001111)) 1 0x20 1 0xff
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#000001111)) 1 0x20 1 0xff
       # Turn off the ALERT LED
-      i2cset -y -m $((2#01000000)) 1 0x20 1 0x00
-      i2cset -y 1 0x20 3 0x00
-      i2cset -y -m $((2#00100000)) 1 0x20 1 0x00
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#01000000)) 1 0x20 1 0x00
+      ${pkgs.i2c-tools}/bin/i2cset -y 1 0x20 3 0x00
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00100000)) 1 0x20 1 0x00
       ###
       # Version >2.0 turn HUB off (set bit 5 to 1)
-      i2cset -y -m $((2#00100000)) 1 0x20 1 0xff
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00100000)) 1 0x20 1 0xff
       # Version >2.0 turn HUB on (set bit 5 to 0)
-      i2cset -y -m $((2#00100000)) 1 0x20 1 0x00
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00100000)) 1 0x20 1 0x00
     '';
   };
 
@@ -130,13 +130,13 @@
     };
     wantedBy = [ "default.target" ];
     script = ''
-      i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
-      sleep 2
-      i2cset -y -m $((2#00000010)) 1 0x20 1 0xff # Node 2
-      sleep 2
-      i2cset -y -m $((2#00000100)) 1 0x20 1 0xff # Node 3
-      sleep 2
-      i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0xff # Node 2
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0xff # Node 3
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
     '';
   };
 
@@ -150,13 +150,13 @@
     };
     wantedBy = [ "default.target" ];
     script = ''
-      i2cset -y -m $((2#00000001)) 1 0x20 1 0x00 # Node 1
-      sleep 2
-      i2cset -y -m $((2#00000010)) 1 0x20 1 0x00 # Node 2
-      sleep 2
-      i2cset -y -m $((2#00000100)) 1 0x20 1 0x00 # Node 3
-      sleep 2
-      i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0x00 # Node 1
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0x00 # Node 2
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0x00 # Node 3
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
 
