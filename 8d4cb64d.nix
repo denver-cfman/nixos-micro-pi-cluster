@@ -121,6 +121,7 @@
       # Add functions here
       # see gadget configurations below
       # End functions
+      ${pkgs.coreutils}/bin/rm -fv /sys/kernel/config/usb_gadget/8d4cb64d/configs/c.1/ecm.usb0 || true
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/8d4cb64d/functions/ecm.usb0
       HOST="00:dc:c8:12:7c:b3"
       SELF="b8:27:eb:12:7c:b2"
