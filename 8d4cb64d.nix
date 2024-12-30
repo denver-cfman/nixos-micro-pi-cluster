@@ -126,6 +126,7 @@
 
 
   systemd.services."on-all-cluster-nodes" = {
+    description = "MicroPi Cluster Turn On all Nodes";
     enable = false;
     reloadIfChanged = false;
     restartIfChanged = false;
@@ -150,6 +151,7 @@
 
 
   systemd.services."off-all-cluster-nodes" = {
+    description = "MicroPi Cluster Turn Off all Nodes";
     enable = false;
     reloadIfChanged = false;
     restartIfChanged = false;
