@@ -40,6 +40,8 @@
     ];
   };
 
+  networking.networkmanager.enable = lib.mkForce true;
+  systemd.network.enable = lib.mkForce false;
 
   networking.hostName = "clusterhat";
 
