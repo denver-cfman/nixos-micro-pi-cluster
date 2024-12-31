@@ -57,8 +57,5 @@ in
       ls /sys/class/udc > UDC
     '';
   };
-  #systemd.services.dnsmasq.after = [ "usb-otg.service" ];
-  systemd.services."network-addresses-usb0".after = [ "usb-otg.service" ];
-  
 
 }
