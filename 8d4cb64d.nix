@@ -77,9 +77,6 @@
       rstp = false;
       interfaces = [ 
                       "eth0"
-                      "eth1"
-                      "eth2"
-                      "eth3"
       ];
     };
   };
