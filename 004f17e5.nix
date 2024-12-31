@@ -43,8 +43,8 @@
       # see gadget configurations below
       # End functions
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5/functions/ecm.usb0
-      HOST="00:dc:c8:12:7c:b3" # "HostPC"
-      SELF="00:00:00:00:00:a1" # "00000000fe127cb3 / smsc95xx.macaddr=b8:27:eb:5a:4d:6b"
+      HOST="00:dc:00:4f:17:e5"
+      SELF="00:00:00:4f:17:e5"
       echo $HOST > functions/ecm.usb0/host_addr
       echo $SELF > functions/ecm.usb0/dev_addr
       ln -s functions/ecm.usb0 configs/c.1/
