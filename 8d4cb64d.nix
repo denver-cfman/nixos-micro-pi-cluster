@@ -70,7 +70,7 @@
   };
 
   #networking.dhcpcd.denyInterfaces = [ "eth0" "eth1" "eth2" "eth3" "eth4" ];
-  networking.useDHCP = false;
+  networking.useDHCP = lib.mkForce false;
 
   networking.bridges = {
     "br0" = {
