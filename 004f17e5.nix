@@ -14,7 +14,7 @@
   sdImage.imageName  = lib.mkForce "004f17e5.img";
   networking.hostName = lib.mkForce "004f17e5";
 
-  /*
+  
   systemd.services."usb-otg" = {
     serviceConfig = {
       Type = "oneshot";
@@ -54,6 +54,6 @@
   };
   #systemd.services.dnsmasq.after = [ "usb-otg.service" ];
   systemd.services."network-addresses-usb0".after = [ "usb-otg.service" ];
-  */
+  
 
 }
