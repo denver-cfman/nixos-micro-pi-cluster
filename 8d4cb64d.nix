@@ -227,8 +227,15 @@
             ];
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
+      ${pkgs.coreutils}/bin/sleep 10
+      MAC=$(ip --brief link show | ${pkgs.coreutils}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.coreutils}/bin/grep -v br0 | ${pkgs.coreutils}/bin/awk '{print $1}')
+      ${pkgs.bridge-utils}/bin/brctl addif br0 $MAC
+      ${pkgs.nettools}/bin/ifconfig $MAC up
     '';
     preStop = ''
+      MAC=$(ip --brief link show | ${pkgs.coreutils}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.coreutils}/bin/grep -v br0 | ${pkgs.coreutils}/bin/awk '{print $1}')
+      ${pkgs.nettools}/bin/ifconfig $MAC down
+      ${pkgs.bridge-utils}/bin/brctl delif br0 $MAC
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
