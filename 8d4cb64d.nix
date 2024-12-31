@@ -69,7 +69,20 @@
     wireless.enable = false;
   };
 
-  networking.dhcpcd.denyInterfaces = [ "usb0" ];
+  networking.dhcpcd.denyInterfaces = [ "eth0" "eth1" "eth2" "eth3" "eth4" ];
+  
+  networking.bridges = {
+    "br0" = {
+      interfaces = [ "eth0" "eth1" "eth2" "eth3" "eth4" ];
+    };
+  };
+
+  networking.interfaces.br0.ipv4.addresses = [ {
+    address = "10.0.85.10";
+    prefixLength = 24;
+  } ];
+  networking.defaultGateway = "10.0.85.1";
+  networking.nameservers = ["10.0.85.1" "8.8.8.8"];
 
 /*
 
