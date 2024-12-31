@@ -4,6 +4,11 @@
   pkgs,
   ...
 }:
+let
+  pi-sn = "004f17e5";
+  host-mac = "00:dc:00:4f:17:e5";
+  usb-mac = "00:00:00:4f:17:e5";
+in
 {
   imports = [
     ./sd-image.nix
@@ -11,8 +16,8 @@
     ./common-rpi0-node.nix
   ];
 
-  sdImage.imageName  = lib.mkForce "004f17e5.img";
-  networking.hostName = lib.mkForce "004f17e5";
+  sdImage.imageName  = lib.mkForce "${pi-sn}.img";
+  networking.hostName = lib.mkForce "${pi-sn}";
 
   
   systemd.services."usb-otg" = {
@@ -23,8 +28,8 @@
     wantedBy = [ "default.target" ];
     script = ''
       ${pkgs.kmod}/bin/modprobe libcomposite
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5
-      cd /sys/kernel/config/usb_gadget/004f17e5
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}
+      cd /sys/kernel/config/usb_gadget/${pi-sn}
       echo 0x1d6b > idVendor # Linux Foundation
       echo 0x0104 > idProduct # Multifunction Composite Gadget
       echo 0x0100 > bcdDevice # v1.0.0
@@ -32,19 +37,19 @@
       echo 0xEF > bDeviceClass
       echo 0x02 > bDeviceSubClass
       echo 0x01 > bDeviceProtocol
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5/strings/0x409
-      echo "fedcba004f17e5" > strings/0x409/serialnumber
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/strings/0x409
+      echo "fedcba${pi-sn}" > strings/0x409/serialnumber
       echo "TheWifiNinja" > strings/0x409/manufacturer
       echo "PI4 USB Device" > strings/0x409/product
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5/configs/c.1/strings/0x409
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
       # Add functions here
       # see gadget configurations below
       # End functions
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/004f17e5/functions/ecm.usb0
-      HOST="00:dc:c8:12:7c:b3" # "HostPC"
-      SELF="00:00:00:00:00:a1" # "00000000fe127cb3 / smsc95xx.macaddr=b8:27:eb:5a:4d:6b"
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
+      HOST="${host-mac}"
+      SELF="${usb-mac}"
       echo $HOST > functions/ecm.usb0/host_addr
       echo $SELF > functions/ecm.usb0/dev_addr
       ln -s functions/ecm.usb0 configs/c.1/
