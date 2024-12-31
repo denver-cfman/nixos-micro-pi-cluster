@@ -77,6 +77,9 @@
       rstp = false;
       interfaces = [ 
                       "eth0"
+                      "eth1"
+                      "eth2"
+                      "eth3"
       ];
     };
   };
@@ -88,7 +91,7 @@
 
   networking.defaultGateway = {
     address = "10.0.85.1";
-    interface = "eth0";
+    interface = "br0";
   };
 
   networking.nameservers = [
