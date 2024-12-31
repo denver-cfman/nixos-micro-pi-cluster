@@ -85,7 +85,7 @@
     };
   };
 
-  networking.interfaces.eth0.ipv4.addresses = [ {
+  networking.interfaces.br0.ipv4.addresses = [ {
     address = "10.0.85.10";
     prefixLength = 24;
   } ];
