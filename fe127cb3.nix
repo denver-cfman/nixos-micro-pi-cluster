@@ -38,9 +38,9 @@ in
       echo 0x02 > bDeviceSubClass
       echo 0x01 > bDeviceProtocol
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/strings/0x409
-      echo "fedcba${pi-sn}" > strings/0x409/serialnumber
-      echo "TheWifiNinja" > strings/0x409/manufacturer
-      echo "PI4 USB Device" > strings/0x409/product
+      echo "${pi-sn}" > strings/0x409/serialnumber
+      echo "GiezenConsulting" > strings/0x409/manufacturer
+      echo "micro-pi-cluster-node" > strings/0x409/product
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
