@@ -55,6 +55,19 @@
     };
   };
 
+
+  services.udev.extraRules = lib.mkForce ''
+    KERNEL=="gpiomem", GROUP="gpio", MODE="0660"
+    SUBSYSTEM=="gpio", KERNEL=="gpiochip*", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys/class/gpio && ${pkgs.coreutils}/bin/chmod -R g=u /sys/class/gpio'"
+    SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys%p && ${pkgs.coreutils}/bin/chmod -R g=u /sys%p'"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="1b5a4d6b", NAME="node1"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="fe127cb3", NAME="node2"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="04a91ec3", NAME="node3"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node4"
+    ACTION=="remove", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node4", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.nettools}/bin/ifconfig node4 down || true && ${pkgs.bridge-utils}/bin/brctl delif br0 node4 || true'"
+  '';
+
+
   networking = {
     hosts = {
       "127.0.0.1" = [ "clusterhat.local" ];
@@ -228,14 +241,12 @@
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
       ${pkgs.coreutils}/bin/sleep 45
-      MAC=$(${pkgs.iproute2}/bin/ip --brief link show | ${pkgs.gnugrep}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.gnugrep}/bin/grep -v br0 | ${pkgs.gawk}/bin/awk '{print $1}')
-      ${pkgs.bridge-utils}/bin/brctl addif br0 $MAC || true
-      ${pkgs.nettools}/bin/ifconfig $MAC up
+      ${pkgs.bridge-utils}/bin/brctl addif br0 node4 || true
+      ${pkgs.nettools}/bin/ifconfig node4 up || true
     '';
     preStop = ''
-      MAC=$(${pkgs.iproute2}/bin/ip --brief link show | ${pkgs.gnugrep}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.gnugrep}/bin/grep -v br0 | ${pkgs.gawk}/bin/awk '{print $1}')
-      ${pkgs.nettools}/bin/ifconfig $MAC down
-      ${pkgs.bridge-utils}/bin/brctl delif br0 $MAC || true
+      ${pkgs.nettools}/bin/ifconfig node4 down
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node4 || true
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
