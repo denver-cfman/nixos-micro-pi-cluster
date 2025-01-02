@@ -61,8 +61,11 @@
     SUBSYSTEM=="gpio", KERNEL=="gpiochip*", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys/class/gpio && ${pkgs.coreutils}/bin/chmod -R g=u /sys/class/gpio'"
     SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys%p && ${pkgs.coreutils}/bin/chmod -R g=u /sys%p'"
     ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="1b5a4d6b", NAME="node1"
+    ACTION=="remove", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="1b5a4d6b", NAME="node1", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.nettools}/bin/ifconfig node1 down || true && ${pkgs.bridge-utils}/bin/brctl delif br0 node1 || true'"
     ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="fe127cb3", NAME="node2"
+    ACTION=="remove", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="fe127cb3", NAME="node2", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.nettools}/bin/ifconfig node2 down || true && ${pkgs.bridge-utils}/bin/brctl delif br0 node2 || true'"
     ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="04a91ec3", NAME="node3"
+    ACTION=="remove", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="04a91ec3", NAME="node3", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.nettools}/bin/ifconfig node3 down || true && ${pkgs.bridge-utils}/bin/brctl delif br0 node3 || true'"
     ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node4"
     ACTION=="remove", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node4", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.nettools}/bin/ifconfig node4 down || true && ${pkgs.bridge-utils}/bin/brctl delif br0 node4 || true'"
   '';
