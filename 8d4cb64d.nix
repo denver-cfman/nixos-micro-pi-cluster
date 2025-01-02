@@ -240,14 +240,12 @@
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
       ${pkgs.coreutils}/bin/sleep 45
-      MAC=$(${pkgs.iproute2}/bin/ip --brief link show | ${pkgs.gnugrep}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.gnugrep}/bin/grep -v br0 | ${pkgs.gawk}/bin/awk '{print $1}')
-      ${pkgs.bridge-utils}/bin/brctl addif br0 $MAC || true
-      ${pkgs.nettools}/bin/ifconfig $MAC up
+      ${pkgs.bridge-utils}/bin/brctl addif br0 node4 || true
+      ${pkgs.nettools}/bin/ifconfig node4 up || true
     '';
     preStop = ''
-      MAC=$(${pkgs.iproute2}/bin/ip --brief link show | ${pkgs.gnugrep}/bin/grep -i 00:dc:00:4f:17:e5 | ${pkgs.gnugrep}/bin/grep -v br0 | ${pkgs.gawk}/bin/awk '{print $1}')
-      ${pkgs.nettools}/bin/ifconfig $MAC down
-      ${pkgs.bridge-utils}/bin/brctl delif br0 $MAC || true
+      ${pkgs.nettools}/bin/ifconfig node4 down
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node4 || true
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0x00 # Node 4
     '';
   };
