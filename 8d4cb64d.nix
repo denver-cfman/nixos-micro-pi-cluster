@@ -61,6 +61,9 @@
     SUBSYSTEM=="gpio", KERNEL=="gpiochip*", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys/class/gpio && ${pkgs.coreutils}/bin/chmod -R g=u /sys/class/gpio'"
     SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp -R gpio /sys%p && ${pkgs.coreutils}/bin/chmod -R g=u /sys%p'"
     ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node1"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node2"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node3"
+    ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="usb", ATTRS{manufacturer}=="GiezenConsulting", ATTRS{serial}=="004f17e5", NAME="node4"
   '';
 
 
