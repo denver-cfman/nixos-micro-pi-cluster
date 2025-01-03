@@ -35,6 +35,7 @@
   boot = {
     kernelParams = lib.mkForce [
                                   "console=ttyS1,115200n8"
+                                  "console=ttyGS0,115200n8"
                               ];
     initrd.availableKernelModules = [
       "usbhid"
