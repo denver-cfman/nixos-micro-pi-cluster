@@ -44,19 +44,16 @@ in
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
-      # Add functions here
-      # see gadget configurations below
-      # End functions
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0
-      ln -s functions/acm.usb0 configs/c.1/
+      ln -s functions/acm.usb0 configs/c.1/  || true
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
       HOST="${host-mac}"
       SELF="${usb-mac}"
       echo $HOST > functions/ecm.usb0/host_addr
       echo $SELF > functions/ecm.usb0/dev_addr
-      ln -s functions/ecm.usb0 configs/c.1/
+      ln -s functions/ecm.usb0 configs/c.1/ || true
       ${pkgs.systemd}/bin/udevadm settle -t 5 || :
-      ls /sys/class/udc > UDC
+      ls /sys/class/udc > UDC  || true
     '';
   };
 
