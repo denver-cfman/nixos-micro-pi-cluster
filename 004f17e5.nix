@@ -57,4 +57,10 @@ in
     '';
   };
 
+  systemd.services."serial-getty@ttyGS0" = {
+    enable = true;
+    wantedBy = [ "getty.target" ]; # to start at boot
+    serviceConfig.Restart = "always"; # restart when session is closed
+  };
+
 }
