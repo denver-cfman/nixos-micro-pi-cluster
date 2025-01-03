@@ -45,7 +45,7 @@ in
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0
-      ln -s functions/acm.usb0 configs/c.1/  || true
+      ln -s functions/acm.usb0 configs/c.1/ || true
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
       HOST="${host-mac}"
       SELF="${usb-mac}"
@@ -55,9 +55,38 @@ in
       ${pkgs.systemd}/bin/udevadm settle -t 5 || :
       ls /sys/class/udc > UDC  || true
     '';
+    preStop = ''
+      # Unlink usb driver
+      echo "" > UDC || true
+      # un-symlink configs
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/acm.usb0
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/ecm.usb0
+      # remove old configs
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1
+      # remove old UART functions
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0/console
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0/port_num
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0
+      # remove old ethernet functions
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/dev_addr
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/host_addr
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/ifname
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/qmult
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
+
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/strings/0x409
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}
+    '';
   };
 
   systemd.services."serial-getty@ttyGS0" = {
+    enable = true;
+    wantedBy = [ "getty.target" ]; # to start at boot
+    serviceConfig.Restart = "always"; # restart when session is closed
+  };
+
+  systemd.services."getty@ttyGS0" = {
     enable = true;
     wantedBy = [ "getty.target" ]; # to start at boot
     serviceConfig.Restart = "always"; # restart when session is closed
