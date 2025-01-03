@@ -40,7 +40,7 @@ in
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth/strings/0x409
       echo "${pi-sn}" > strings/0x409/serialnumber
       echo "GiezenConsulting" > strings/0x409/manufacturer
-      echo "micro-pi-cluster-node" > strings/0x409/product
+      echo "micro-pi-cluster-node-eth" > strings/0x409/product
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth/configs/c.1/strings/0x409
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
@@ -78,21 +78,14 @@ in
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/strings/0x409
       echo "${pi-sn}" > strings/0x409/serialnumber
       echo "GiezenConsulting" > strings/0x409/manufacturer
-      echo "micro-pi-cluster-node" > strings/0x409/product
+      echo "micro-pi-cluster-node-uart" > strings/0x409/product
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/configs/c.1/strings/0x409
-      echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
-      echo 250 > configs/c.1/MaxPower
-      # Add functions here
-      # see gadget configurations below
-      # End functions
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/functions/ecm.usb0
-      HOST="${host-mac}"
-      SELF="${usb-mac}"
-      echo $HOST > functions/ecm.usb0/host_addr
-      echo $SELF > functions/ecm.usb0/dev_addr
-      ln -s functions/ecm.usb0 configs/c.1/
-      ${pkgs.systemd}/bin/udevadm settle -t 5 || :
-      ls /sys/class/udc > UDC
+      echo "acm" > configs/c.1/strings/0x409/configuration
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/functions/acm.usb0
+      ln -s functions/acm.usb0 configs/c.1/
+      echo "ci_hdrc.0" > UDC      
+      #${pkgs.systemd}/bin/udevadm settle -t 5 || :
+      #ls /sys/class/udc > UDC
     '';
   };
 
