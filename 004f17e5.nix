@@ -47,6 +47,8 @@ in
       # Add functions here
       # see gadget configurations below
       # End functions
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0
+      ln -s functions/acm.usb0 configs/c.1/
       ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
       HOST="${host-mac}"
       SELF="${usb-mac}"
