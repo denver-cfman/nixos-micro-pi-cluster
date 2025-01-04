@@ -120,6 +120,7 @@ in
   environment.systemPackages = with pkgs; [
     libraspberrypi
     raspberrypi-eeprom
+    neovim
     htop
     vim
     jq
