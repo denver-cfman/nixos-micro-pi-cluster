@@ -123,10 +123,10 @@
     };
     wantedBy = [ 
                   "default.target"
-                  "cluster-node1"
-                  "cluster-node2"
-                  "cluster-node3"
-                  "cluster-node4"
+                  "cluster-node1.service"
+                  "cluster-node2.service"
+                  "cluster-node3.service"
+                  "cluster-node4.service"
                 ];
     script = ''
       ${pkgs.nettools}/bin/ifconfig node4 down|| true
