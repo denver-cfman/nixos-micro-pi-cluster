@@ -121,9 +121,22 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    #wantedBy = [ "on-all-cluster-nodes.service" "off-all-cluster-nodes.service" "usb-otg.service"];
-    wantedBy = [ "default.target" ];
+    wantedBy = [ 
+                  "default.target"
+                  "cluster-node1"
+                  "cluster-node2"
+                  "cluster-node3"
+                  "cluster-node4"
+                ];
     script = ''
+      ${pkgs.nettools}/bin/ifconfig node4 down|| true
+      ${pkgs.nettools}/bin/ifconfig node3 down || true
+      ${pkgs.nettools}/bin/ifconfig node2 down || true
+      ${pkgs.nettools}/bin/ifconfig node1 down || true
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node4 || true
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node3 || true
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node2 || true
+      ${pkgs.bridge-utils}/bin/brctl delif br0 node1 || true
       # POR has been cut so turn on P1-P4
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#000001111)) 1 0x20 1 0xff
       # Turn off the ALERT LED
