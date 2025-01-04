@@ -19,8 +19,12 @@ in
   sdImage.imageName  = lib.mkForce "${pi-sn}.img";
   networking.hostName = lib.mkForce "${pi-sn}";
 
-  
-  systemd.services."usb-eth-otg" = {
+    boot.kernelParams = lib.mkForce [
+                                  "console=ttyS1,115200n8"
+                                  #"console=ttyGS0,115200n8"
+                              ];
+
+  systemd.services."usb-otg" = {
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -28,8 +32,8 @@ in
     wantedBy = [ "default.target" ];
     script = ''
       ${pkgs.kmod}/bin/modprobe libcomposite
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth
-      cd /sys/kernel/config/usb_gadget/${pi-sn}-eth
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}
+      cd /sys/kernel/config/usb_gadget/${pi-sn}
       echo 0x1d6b > idVendor # Linux Foundation
       echo 0x0104 > idProduct # Multifunction Composite Gadget
       echo 0x0100 > bcdDevice # v1.0.0
@@ -37,56 +41,48 @@ in
       echo 0xEF > bDeviceClass
       echo 0x02 > bDeviceSubClass
       echo 0x01 > bDeviceProtocol
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth/strings/0x409
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/strings/0x409
       echo "${pi-sn}" > strings/0x409/serialnumber
       echo "GiezenConsulting" > strings/0x409/manufacturer
       echo "micro-pi-cluster-node-eth" > strings/0x409/product
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth/configs/c.1/strings/0x409
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
       echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
       echo 250 > configs/c.1/MaxPower
-      # Add functions here
-      # see gadget configurations below
-      # End functions
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-eth/functions/ecm.usb0
+      
+      #${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0
+      #ln -s functions/acm.usb0 configs/c.1/ || true
+      
+      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
       HOST="${host-mac}"
       SELF="${usb-mac}"
       echo $HOST > functions/ecm.usb0/host_addr
       echo $SELF > functions/ecm.usb0/dev_addr
-      ln -s functions/ecm.usb0 configs/c.1/
+      ln -s functions/ecm.usb0 configs/c.1/ || true
       ${pkgs.systemd}/bin/udevadm settle -t 5 || :
-      ls /sys/class/udc > UDC
+      ls /sys/class/udc > UDC  || true
+    '';
+    preStop = ''
+      # Unlink usb driver
+      echo "" > UDC || true
+      # un-symlink configs
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/acm.usb0 || true
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/ecm.usb0
+      # remove old configs
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1/strings/0x409
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/configs/c.1
+      # remove old UART functions
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0/console || true
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0/port_num || true
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/functions/acm.usb0 || true
+      # remove old ethernet functions
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/dev_addr
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/host_addr
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/ifname
+      ${pkgs.coreutils}/bin/rm /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0/qmult
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/functions/ecm.usb0
+
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}/strings/0x409
+      ${pkgs.coreutils}/bin/rmdir /sys/kernel/config/usb_gadget/${pi-sn}
     '';
   };
-
-  systemd.services."usb-serial-otg" = {
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    wantedBy = [ "default.target" ];
-    script = ''
-      ${pkgs.kmod}/bin/modprobe libcomposite
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial
-      cd /sys/kernel/config/usb_gadget/${pi-sn}-serial
-      echo 0x1d6b > idVendor # Linux Foundation
-      echo 0x0104 > idProduct # Multifunction Composite Gadget
-      echo 0x0100 > bcdDevice # v1.0.0
-      echo 0x0200 > bcdUSB # USB2
-      echo 0xEF > bDeviceClass
-      echo 0x02 > bDeviceSubClass
-      echo 0x01 > bDeviceProtocol
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/strings/0x409
-      echo "${pi-sn}" > strings/0x409/serialnumber
-      echo "GiezenConsulting" > strings/0x409/manufacturer
-      echo "micro-pi-cluster-node-uart" > strings/0x409/product
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/configs/c.1/strings/0x409
-      echo "acm" > configs/c.1/strings/0x409/configuration
-      ${pkgs.coreutils}/bin/mkdir -p /sys/kernel/config/usb_gadget/${pi-sn}-serial/functions/acm.usb0
-      ln -s functions/acm.usb0 configs/c.1/
-      echo "ci_hdrc.0" > UDC      
-      #${pkgs.systemd}/bin/udevadm settle -t 5 || :
-      #ls /sys/class/udc > UDC
-    '';
-  };
-
 }
