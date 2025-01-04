@@ -115,7 +115,7 @@
   systemd.services."cluster-hat" = {
     description = "MicroPi ClusterHat Prep Script";
     enable = true;
-    reloadIfChanged = true;
+    reloadIfChanged = false;
     restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
@@ -128,6 +128,8 @@
                   "cluster-node3.service"
                   "cluster-node4.service"
                 ];
+    reload = ''
+    '';
     script = ''
       ${pkgs.nettools}/bin/ifconfig node4 down|| true
       ${pkgs.nettools}/bin/ifconfig node3 down || true
@@ -155,7 +157,7 @@
     description = "MicroPi Cluster Turn On Node 1";
     enable = true;
     reloadIfChanged = false;
-    restartIfChanged = false;
+    restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -165,6 +167,8 @@
               "cluster-hat.service"
               "off-all-cluster-nodes.service"
             ];
+    reload = ''
+    '';
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000001)) 1 0x20 1 0xff # Node 1
       ${pkgs.coreutils}/bin/sleep 45
@@ -182,7 +186,7 @@
     description = "MicroPi Cluster Turn On Node 2";
     enable = true;
     reloadIfChanged = false;
-    restartIfChanged = false;
+    restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -191,6 +195,8 @@
     after = [
               "cluster-hat.service"
             ];
+    reload = ''
+    '';
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000010)) 1 0x20 1 0xff # Node 2
       ${pkgs.coreutils}/bin/sleep 45
@@ -208,7 +214,7 @@
     description = "MicroPi Cluster Turn On Node 3";
     enable = true;
     reloadIfChanged = false;
-    restartIfChanged = false;
+    restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -217,6 +223,8 @@
     after = [
               "cluster-hat.service"
             ];
+    reload = ''
+    '';
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00000100)) 1 0x20 1 0xff # Node 3
       ${pkgs.coreutils}/bin/sleep 45
@@ -234,7 +242,7 @@
     description = "MicroPi Cluster Turn On Node 4";
     enable = true;
     reloadIfChanged = false;
-    restartIfChanged = false;
+    restartIfChanged = true;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -243,6 +251,8 @@
     after = [
               "cluster-hat.service"
             ];
+    reload = ''
+    '';
     script = ''
       ${pkgs.i2c-tools}/bin/i2cset -y -m $((2#00001000)) 1 0x20 1 0xff # Node 4
       ${pkgs.coreutils}/bin/sleep 45
