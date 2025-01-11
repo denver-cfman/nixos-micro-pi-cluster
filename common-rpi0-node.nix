@@ -47,6 +47,14 @@
     wireless.enable = false;
   };
 
+  services.k3s = {
+    enable = true;
+    token = "K109225314c2362ddcf00d33e670e2cb09150ca11226f469c52c89d1b7ee4bd3a9c::server:mytoken";
+    role = "agent";
+    serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
+    extraFlags = "--disable=servicelb";
+    #disableAgent = "false";
+  };
 
   services.zram-generator = {
     enable = true;
