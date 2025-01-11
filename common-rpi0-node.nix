@@ -2,11 +2,10 @@
   lib,
   modulesPath,
   pkgs,
-  builtins,
   ...
 }:
 let
-  k3sToken = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
+  k3sToken = if lib.hasEnv "K3S_TOKEN" then lib.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
 in
 {
   imports = [
