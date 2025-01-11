@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  k3sToken = builtins.getEnv "K3S_TOKEN" or "somereallylongfakevaluegoeshere"; # Replaceable variable
+in
 {
   imports = [
     ./sd-image.nix
@@ -49,7 +52,7 @@
 
   services.k3s = {
     enable = true;
-    token = "K109225314c2362ddcf00d33e670e2cb09150ca11226f469c52c89d1b7ee4bd3a9c::server:mytoken";
+    token = "${k3sToken}";
     role = "agent";
     serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
     extraFlags = "--disable=servicelb";
