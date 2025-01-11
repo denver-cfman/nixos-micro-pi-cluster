@@ -6,7 +6,7 @@
   ...
 }:
 let
-  k3sToken = (builtins.getEnv "K3S_TOKEN" or "somereallylongfakevaluegoeshere"); # Replaceable variable
+  k3sToken = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
 in
 {
   imports = [
