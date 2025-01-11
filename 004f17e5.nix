@@ -8,6 +8,7 @@ let
   pi-sn = "004f17e5";
   host-mac = "00:dc:00:4f:17:e5";
   usb-mac = "00:00:00:4f:17:e5";
+  k3sToken = builtins.getEnv "K3S_TOKEN" or "somereallylongfakevaluegoeshere"; # Replaceable variable
 in
 {
   imports = [
@@ -19,7 +20,23 @@ in
   sdImage.imageName  = lib.mkForce "${pi-sn}.img";
   networking.hostName = lib.mkForce "${pi-sn}";
 
-  
+
+  networking = {
+    hostName = lib.mkForce "${pi-sn}";
+    extraHosts = lib.mkForce ''
+10.0.85.10 clusterhat clusterhat.micro.giezenconsulting.com
+'';
+  };
+
+  services.k3s = {
+    enable = true;
+    token = "K109225314c2362ddcf00d33e670e2cb09150ca11226f469c52c89d1b7ee4bd3a9c::server:mytoken";
+    role = "agent";
+    serverAddr="https://rpi4-cluster-head.giezenconsulting.com:6443";
+    extraFlags = "--disable=servicelb";
+    #disableAgent = "false";
+  };
+
   systemd.services."usb-otg" = {
     serviceConfig = {
       Type = "oneshot";
