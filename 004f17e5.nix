@@ -17,8 +17,6 @@ in
   ];
 
   sdImage.imageName  = lib.mkForce "${pi-sn}.img";
-  networking.hostName = lib.mkForce "${pi-sn}";
-
 
   networking = {
     hostName = lib.mkForce "${pi-sn}";
