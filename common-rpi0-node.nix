@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  k3sToken = builtins.getEnv "K3S_TOKEN" or "somereallylongfakevaluegoeshere"; # Replaceable variable
+in
 {
   imports = [
     ./sd-image.nix
@@ -47,6 +50,14 @@
     wireless.enable = false;
   };
 
+  services.k3s = {
+    enable = true;
+    token = "${k3sToken}";
+    role = "agent";
+    serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
+    extraFlags = "--disable=servicelb";
+    #disableAgent = "false";
+  };
 
   services.zram-generator = {
     enable = true;

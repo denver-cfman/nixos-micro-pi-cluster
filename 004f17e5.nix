@@ -19,7 +19,14 @@ in
   sdImage.imageName  = lib.mkForce "${pi-sn}.img";
   networking.hostName = lib.mkForce "${pi-sn}";
 
-  
+
+  networking = {
+    hostName = lib.mkForce "${pi-sn}";
+    extraHosts = lib.mkForce ''
+10.0.85.10 clusterhat clusterhat.micro.giezenconsulting.com
+'';
+  };
+
   systemd.services."usb-otg" = {
     serviceConfig = {
       Type = "oneshot";
