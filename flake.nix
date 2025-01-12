@@ -17,7 +17,6 @@
     self,
     nixpkgs,
     deploy-rs,
-    builtins,
     #colmena,
     nixos-hardware
   }@inputs:
@@ -45,7 +44,7 @@
          _004f17e5 = nixpkgs.lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            ({ config, pkgs, builtins, ... }: { nixpkgs.overlays = overlays; })
+            ({ config, pkgs, ... }: { nixpkgs.overlays = overlays; })
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
             ./004f17e5.nix
           ];
