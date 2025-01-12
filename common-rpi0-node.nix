@@ -49,7 +49,8 @@
 
   services.k3s = {
     enable = true;
-    token = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
+    #token = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
+    token = if lib.hasEnv "K3S_TOKEN" then lib.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
     role = "agent";
     serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
     extraFlags = "--disable=servicelb";
