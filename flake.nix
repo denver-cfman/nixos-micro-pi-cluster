@@ -17,6 +17,7 @@
     self,
     nixpkgs,
     deploy-rs,
+    builtins,
     #colmena,
     nixos-hardware
   }@inputs:
@@ -44,7 +45,7 @@
          _004f17e5 = nixpkgs.lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            ({ config, pkgs, ... }: { nixpkgs.overlays = overlays; })
+            ({ config, pkgs, builtins, ... }: { nixpkgs.overlays = overlays; })
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
             ./004f17e5.nix
           ];
@@ -75,25 +76,8 @@
         };
       };
 
-      /*
-      colmena = {
-        meta = { 
-          allowApplyAll = false;
-          nixpkgs = import nixpkgs {
-            system = "aarch64-linux";
-            overlays = [];
-          };
-        };
-        _8d4cb64d = { name, nodes, pkgs, ... }: {
-          deployment = {
-            targetHost = "10.0.85.10";
-            targetUser = "giezac";
-            tags = [ "head" ];
-          };
-        };
-      };
-      */
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
       deploy = {
         user = "root";
         sshOpts = [ "-i" "/home/giezac/.ssh/pzw2.rsa" ];
