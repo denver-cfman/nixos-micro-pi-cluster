@@ -2,7 +2,6 @@
   lib,
   modulesPath,
   pkgs,
-  builtins,
   ...
 }:
 let
