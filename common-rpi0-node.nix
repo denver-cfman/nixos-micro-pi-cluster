@@ -4,9 +4,6 @@
   pkgs,
   ...
 }:
-let
-  k3sToken = if hasEnv "K3S_TOKEN" then getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
-in
 {
   imports = [
     ./sd-image.nix
@@ -52,7 +49,7 @@ in
 
   services.k3s = {
     enable = true;
-    token = "${k3sToken}";
+    token = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
     role = "agent";
     serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
     extraFlags = "--disable=servicelb";
