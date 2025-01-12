@@ -5,7 +5,7 @@
   ...
 }:
 let
-  k3sToken = if builtins.hasEnv "K3S_TOKEN" then builtins.getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
+  k3sToken = if hasEnv "K3S_TOKEN" then getEnv "K3S_TOKEN" else "somereallylongfakevaluegoeshere";
 in
 {
   imports = [
