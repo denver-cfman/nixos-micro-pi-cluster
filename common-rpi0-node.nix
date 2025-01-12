@@ -2,11 +2,12 @@
   lib,
   modulesPath,
   pkgs,
+  builtins,
   ...
 }:
 let
-  k3sToken = if lib.getEnv "K3S_TOKEN" != null
-             then lib.getEnv "K3S_TOKEN"
+  k3sToken = if builtins.getEnv "K3S_TOKEN" != null
+             then builtins.getEnv "K3S_TOKEN"
              else "default-value";
 in
 {
