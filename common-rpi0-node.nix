@@ -54,11 +54,11 @@ in
 
   services.k3s = {
     enable = true;
-    #token = "${k3sToken}";
-    token = "wiuhiuwherfwherfiohwof";
+    token = "${k3sToken}";
+    #token = "wiuhiuwherfwherfiohwof";
     role = "agent";
     serverAddr="https://clusterhat.micro.giezenconsulting.com:6443";
-    extraFlags = "--disable=servicelb ${k3sToken}";
+    extraFlags = "--disable=servicelb";
     #disableAgent = "false";
   };
 
