@@ -17,7 +17,6 @@
     self,
     nixpkgs,
     deploy-rs,
-    builtins,
     #colmena,
     nixos-hardware
   }@inputs:
