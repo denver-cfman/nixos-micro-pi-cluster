@@ -284,6 +284,14 @@
     libraspberrypi
     raspberrypi-eeprom
     neovim
+    htop
+    btop
+    #btop-rocm
+    usbtop
+    iftop
+    iotop
+    sysdig
+    s-tui
     #dnsmasq
     htop
     jq

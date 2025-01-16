@@ -121,6 +121,14 @@ in
     libraspberrypi
     raspberrypi-eeprom
     htop
+    btop
+    #btop-rocm
+    usbtop
+    iftop
+    iotop
+    sysdig
+    s-tui
+    neovim
     vim
     jq
     usbutils
