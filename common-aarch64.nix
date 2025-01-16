@@ -16,6 +16,8 @@ in
   nixpkgs.buildPlatform.system = "x86_64-linux";
   # ! Need a trusted user for deploy-rs.
 
+  nixpkgs.config.allowUnsupportedSystem = true;
+
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     tarball-ttl = 0
