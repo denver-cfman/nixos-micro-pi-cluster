@@ -128,6 +128,7 @@ in
     iotop
     sysdig
     s-tui
+    neovim
     vim
     jq
     usbutils
