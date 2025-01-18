@@ -47,3 +47,8 @@ sudo nixos-rebuild switch --flake github:denver-cfman/nixos-micro-pi-cluster#_8d
 ```
 K3S_TOKEN=thisisjustatest nix run github:serokell/deploy-rs github:denver-cfman/nixos-micro-pi-cluster#_8d4cb64d -- -s -d --ssh-user giezac --hostname 10.0.85.10
 ```
+
+#### Test Compile of a single package
+```
+nix build github:NixOS/nixpkgs/e4f449ab51a283676d3b520c3dbaa3eafa5025b4#pkgsCross.aarch64-multiplatform.screen
+```
