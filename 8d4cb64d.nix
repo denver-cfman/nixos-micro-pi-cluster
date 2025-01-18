@@ -283,7 +283,8 @@
   environment.systemPackages = with pkgs; [
     libraspberrypi
     raspberrypi-eeprom
-    neovim
+    fastfetch
+    ipfetch
     htop
     btop
     #btop-rocm
