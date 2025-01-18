@@ -284,7 +284,7 @@
     libraspberrypi
     raspberrypi-eeprom
     fastfetch
-		ipfetch
+    ipfetch
     htop
     btop
     #btop-rocm
