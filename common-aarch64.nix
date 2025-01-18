@@ -130,8 +130,8 @@ in
     iotop
     sysdig
     s-tui
-  	fastfetch
-		ipfetch
+    fastfetch
+    ipfetch
     vim
     jq
     usbutils
