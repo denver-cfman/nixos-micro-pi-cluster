@@ -130,7 +130,7 @@ in
     iotop
     sysdig
     s-tui
-    neovim
+  	#neovim
     vim
     jq
     usbutils
