@@ -130,7 +130,8 @@ in
     iotop
     sysdig
     s-tui
-  	#neovim
+  	fastfetch
+		ipfetch
     vim
     jq
     usbutils
