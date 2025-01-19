@@ -128,7 +128,7 @@ in
     usbtop
     iftop
     iotop
-    sysdig
+    #sysdig
     s-tui
     fastfetch
     ipfetch

@@ -291,7 +291,7 @@
     usbtop
     iftop
     iotop
-    sysdig
+    #sysdig
     s-tui
     #dnsmasq
     htop
