@@ -51,7 +51,11 @@ in
   boot = {
     kernelParams = [
       "console=ttyS1,115200n8"
+      "cgroup_enable=cpuset"
+      "cgroup_memory=1"
+      "cgroup_enable=memory"
     ];
+
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
