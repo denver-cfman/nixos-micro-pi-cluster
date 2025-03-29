@@ -5,7 +5,7 @@
   ...
 }:
 let
-  k3sToken = token;
+  k3sToken = "token";
 in
 {
   imports = [
