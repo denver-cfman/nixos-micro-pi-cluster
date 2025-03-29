@@ -5,9 +5,7 @@
   ...
 }:
 let
-  k3sToken = if builtins.getEnv "K3S_TOKEN" != null
-             then builtins.getEnv "K3S_TOKEN"
-             else "default-value";
+  k3sToken = token;
 in
 {
   imports = [
